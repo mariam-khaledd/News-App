@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../new_details/news_details.dart';
+import 'component/category_chip.dart';
+import 'component/category_item.dart';
 import 'cubit/home_cubit.dart';
 import 'cubit/home_state.dart';
 
@@ -66,7 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               "Breaking News",
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -74,6 +76,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Show More",
                               style: TextStyle(
                                 color: Colors.blue,
+                                fontSize: 12,
                               ),
                             ),
                           ],
@@ -102,14 +105,37 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         const SizedBox(height: 15),
 
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            chip("All", 0),
-                            chip("Politics", 1),
-                            chip("Sport", 2),
-                            chip("Health", 3),
-                          ],
+                        SingleChildScrollView(
+                          scrollDirection: Axis.horizontal,
+                          child: Row(
+                            children: List.generate(
+                              homeCategories.length,
+                                  (index) {
+                                final category = homeCategories[index];
+
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 10),
+                                  child: CategoryChip(
+                                    category: category,
+                                    isSelected: selectedChip == index,
+                                    onTap: () {
+                                      setState(() {
+                                        selectedChip = index;
+                                      });
+
+                                      if (category.query.isEmpty) {
+                                        context.read<HomeCubit>().getHomeArticles();
+                                      } else {
+                                        context
+                                            .read<HomeCubit>()
+                                            .searchArticles(category.query);
+                                      }
+                                    },
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         ),
 
                         const SizedBox(height: 20),
@@ -121,7 +147,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             Text(
                               "News For You",
                               style: TextStyle(
-                                fontSize: 22,
+                                fontSize: 18,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -129,6 +155,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               "Show More",
                               style: TextStyle(
                                 color: Colors.blue,
+                                fontSize: 12,
                               ),
                             ),
                           ],
