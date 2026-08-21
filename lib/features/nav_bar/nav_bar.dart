@@ -3,6 +3,7 @@ import 'package:curved_labeled_navigation_bar/curved_navigation_bar_item.dart';
 import 'package:flutter/material.dart';
 
 import '../Search/searchmain/search.dart';
+import '../ai_chat/presentation/pages/ai_chat_screen.dart';
 import '../home/home.dart';
 
 class BottomNavScreen extends StatefulWidget {
@@ -24,12 +25,7 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
         style: TextStyle(fontSize: 24),
       ),
     ),
-    const Center(
-      child: Text(
-        "Profile",
-        style: TextStyle(fontSize: 24),
-      ),
-    ),
+    const AiChatScreen(),
   ];
 
   @override
@@ -62,8 +58,8 @@ class _BottomNavScreenState extends State<BottomNavScreen> {
             labelStyle: TextStyle(color: Colors.white),
           ),
           CurvedNavigationBarItem(
-            child: Icon(Icons.person, color: Colors.white),
-            label: "Profile",
+            child: Icon(Icons.support_agent, color: Colors.white),
+            label: "AI Support",
             labelStyle: TextStyle(color: Colors.white),
           ),
         ],

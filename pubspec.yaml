@@ -38,6 +38,8 @@ dependencies:
   flutter_bloc: ^9.1.1
   dio: ^5.9.0
   curved_labeled_navigation_bar: ^2.0.2
+  http: ^1.5.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
